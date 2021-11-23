@@ -39,15 +39,15 @@ const Tetris = () => {
     drop();
   };
 
-  const move = ({ keycode }) => {
-    if (!gameOver) {
-      if (keycode === 37) {
-        movePlayer(-1);
-      } else if (keycode === 39) {
-        movePlayer(1);
-      } else if (keycode === 40) {
-        dropPlayer();
-      }
+  const move = ({ key }) => {
+    if (gameOver) return;
+
+    if (key === "ArrowLeft") {
+      movePlayer(-1);
+    } else if (key === "ArrowRight") {
+      movePlayer(1);
+    } else if (key === "ArrowUp") {
+      dropPlayer();
     }
   };
 
