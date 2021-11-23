@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import { STAGE_WIDTH } from "../gameHelpers";
 import { randomTetromino } from "../tetrominos";
 
+
+// current player and tetromino
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
@@ -16,6 +18,7 @@ export const usePlayer = () => {
     }));
   };
 
+//the positioning of the game reset if using Start Game button
   const resetPlayer = useCallback(() => {
     setPlayer({
       pos: { x: STAGE_WIDTH / 2 - 2, y: 0 },

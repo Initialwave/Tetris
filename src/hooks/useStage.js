@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { createStage } from "../gameHelpers";
+import { checkCollision, createStage } from "../gameHelpers";
+
 
 export const useStage = (player, resetPlayer) => {
   const [stage, setStage] = useState(createStage());
@@ -15,14 +16,14 @@ export const useStage = (player, resetPlayer) => {
       player.tetromino.forEach((row, y) => {
         row.forEach((value, x) => {
           if (value !== 0) {
-            const updatedY = y + player.pos.y
-            const updatedX = x + player.pos.x
-            const collisionState = player.collided ? "merged" : "clear"
-
-            newStage[updatedY][updatedX] = [ value, collisionState ];
+            newStage[y + player.pos.y][x + player.pos.x] = [
+              value,
+              `${player.collided ? "merged" : "clear"}`,
+            ];
           }
         });
       });
+      console.log(player.collided);
       // Then check if we collided
       if (player.collided) {
         resetPlayer();

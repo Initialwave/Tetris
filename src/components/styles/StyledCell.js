@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// CSS done in styled-components format, taken from docs: 'https://styled-components.com/'
 export const StyledCell = styled.div`
   width: auto;
   background: rgba(${props => props.color}, 0.8);

@@ -1,6 +1,8 @@
 import React from "react";
 import { StyledDisplay } from "./styles/StyledDisplay";
 
+
+// the Display for game Over when a player loses the game
 const Display = ({ gameOver, text }) => (
   <StyledDisplay gameOver={gameOver}>{text}</StyledDisplay>
 );
