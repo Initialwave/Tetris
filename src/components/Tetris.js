@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { checkCollision, createStage } from "../gameHelpers";
+import { createStage, checkCollision } from "../gameHelpers.js";
 
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris.js";
 
@@ -17,38 +17,47 @@ const Tetris = () => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
-  const [player, updatePlayerPos, resetPlayer] = usePlayer();
+  const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
   const [stage, setStage] = useStage(player, resetPlayer);
 
   console.log("re-render");
 
-// this updates the player position in the logic so the tetromino moves with the associated button press
+  // this updates the player position in the logic so the tetromino moves with the associated button press
   const movePlayer = dir => {
-    updatePlayerPos({
-      x: dir,
-      y: 0,
-      collided: checkCollision(player, stage, { x: dir, y: 0 }),
-    });
+    if (!checkCollision(player, stage, { x: dir, y: 0 })) {
+      updatePlayerPos({ x: dir, y: 0 });
+    }
   };
 
-//what happens when a player clicks Start Game
+  //what happens when a player clicks Start Game
   const startGame = () => {
     //resets the game
     setStage(createStage());
     resetPlayer();
+    setGameOver(false);
   };
 
-// when the player hits the up arrow, this will drop our tetromino by one div.
+  // when the player hits the up arrow, this will drop our tetromino by one div.
   const drop = () => {
-    updatePlayerPos({ x: 0, y: 1, collided: false });
+    if (!checkCollision(player, stage, { x: 0, y: 1 })) {
+      updatePlayerPos({ x: 0, y: 1, collided: false });
+    } else {
+      // Game Over
+      if (player.pos.y < 1) {
+        console.log("GAME OVER");
+        setGameOver(true);
+        setDropTime(null);
+      }
+      updatePlayerPos({ x: 0, y: 0, collided: true });
+    }
   };
 
-// reiterated above, but we will be building logic to immediately drop the piece x div spaces.
+  // reiterated above, but we will be building logic to immediately drop the piece x div spaces.
   const dropPlayer = () => {
     drop();
   };
 
- // the logic for moving the tetromino. had some issues with deprecated dependencies, but overhauled to work with new commands. 
+  // the logic for moving the tetromino. had some issues with deprecated dependencies, but overhauled to work with new commands.
   const move = ({ key }) => {
     if (gameOver) return;
 
@@ -58,10 +67,12 @@ const Tetris = () => {
       movePlayer(1);
     } else if (key === "ArrowUp") {
       dropPlayer();
+    } else if (key === "ArrowDown") {
+      playerRotate(stage, 1);
     }
   };
 
-// the return when you click the Start Game button to reset tetromino position, reset score, level, and rows completed
+  // the return when you click the Start Game button to reset tetromino position, reset score, level, and rows completed
   return (
     <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)}>
       <StyledTetris>

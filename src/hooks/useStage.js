@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { checkCollision, createStage } from "../gameHelpers";
-
+import { checkCollision, createStage } from "../gameHelpers.js";
 
 export const useStage = (player, resetPlayer) => {
   const [stage, setStage] = useState(createStage());
@@ -23,7 +22,6 @@ export const useStage = (player, resetPlayer) => {
           }
         });
       });
-      console.log(player.collided);
       // Then check if we collided
       if (player.collided) {
         resetPlayer();
