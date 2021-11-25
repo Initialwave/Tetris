@@ -38,11 +38,11 @@ export const usePlayer = () => {
   };
 
   const updatePlayerPos = ({ x, y, collided }) => {
-    setPlayer(prev => ({
-      ...prev,
-      pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
+    setPlayer({
+      ...player,
+      pos: { x: (player.pos.x += x), y: (player.pos.y += y) },
       collided,
-    }));
+    });
   };
 
   //the positioning of the game reset if using Start Game button
