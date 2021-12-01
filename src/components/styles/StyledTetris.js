@@ -22,5 +22,6 @@ export const StyledTetris = styled.div`
     max-width: 200px;
     display: block;
     padding: 0 20px;
+    color: #198;
   }
 `;
