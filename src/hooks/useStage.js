@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { checkCollision, createStage } from "../gameHelpers.js";
+import { createStage } from "../gameHelpers.js";
 
 export const useStage = (player, resetPlayer) => {
   const [stage, setStage] = useState(createStage());
@@ -7,13 +7,20 @@ export const useStage = (player, resetPlayer) => {
 
   useEffect(() => {
     setRowsCleared(0);
-
+    let counter = 0;
+    let tiers = 0;
     const sweepRows = newStage =>
       newStage.reduce((ack, row) => {
         if (row.findIndex(cell => cell[0] === 0) === -1) {
-          setRowsCleared(rowsCleared + 1);
+          if (row.filter(item => item[0] !== 0).length === 12) {
+            counter++;
+          }
           ack.unshift(new Array(newStage[0].length).fill([0, "clear"]));
           return ack;
+        }
+        tiers++;
+        if (tiers === 20) {
+          setRowsCleared(counter);
         }
         ack.push(row);
         return ack;
@@ -46,7 +53,7 @@ export const useStage = (player, resetPlayer) => {
     };
 
     setStage(prev => updateStage(prev));
-  }, [player, resetPlayer]);
+  }, [player, resetPlayer, rowsCleared]);
 
   return [stage, setStage, rowsCleared];
 };
