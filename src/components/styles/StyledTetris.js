@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import bgImage from "../../img/bg.png";
+import bgImage from "../../img/tetros.jpg";
 
 export const StyledTetrisWrapper = styled.div`
   width: 100vw;
@@ -22,6 +22,6 @@ export const StyledTetris = styled.div`
     max-width: 200px;
     display: block;
     padding: 0 20px;
-    color: #198;
+    color: #670;
   }
 `;
