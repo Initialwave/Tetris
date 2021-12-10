@@ -1,10 +1,17 @@
 export const STAGE_WIDTH = 12;
 export const STAGE_HEIGHT = 20;
+export const BOX_WIDTH = 8;
+export const BOX_HEIGHT = 8;
 
 // the array for our stage
 export const createStage = () =>
   Array.from(Array(STAGE_HEIGHT), () =>
     new Array(STAGE_WIDTH).fill([0, "clear"])
+  );
+
+  export const createBox = () =>
+  Array.from(Array(BOX_HEIGHT), () =>
+    new Array(BOX_WIDTH).fill([0, "clear"])
   );
 // the Game logic to prevent players from going through the walls and floor.
 export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {

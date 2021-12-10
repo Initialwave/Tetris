@@ -44,12 +44,13 @@ const Tetris = () => {
     setScore(0);
     setRows(0);
     setLevel(0);
+    
   };
 
   // when the player hits the up arrow, this will drop our tetromino by one div.
   const drop = () => {
     // increases level and speed after clearing 10 rows
-    if (rows > (level + 1) * 10) {
+    if (rows > (level + 1) * 9) {
       setLevel(prev => prev + 1);
       setDropTime(1000 / (level + 1) + 200);
     }

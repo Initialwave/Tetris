@@ -49,8 +49,15 @@ export const usePlayer = () => {
   const resetPlayer = useCallback(() => {
     setPlayer({
       pos: { x: STAGE_WIDTH / 2 - 2, y: 0 },
-      tetromino: randomTetromino().shape,
+      tetromino: Boxed().shape,
       collided: false,
+    });
+  }, []);
+
+  const boxedtetro = useCallback(() => {
+    setBox({
+      pos: { Box },
+      tetromino: randomTetromino().shape,
     });
   }, []);
 

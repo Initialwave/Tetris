@@ -3,7 +3,7 @@ import { StyledDisplay } from "./styles/StyledDisplay";
 
 
 // the Display for game Over when a player loses the game
-const Display = ({ gameOver, text }) => (
+const Display = ({ gameOver, text, tetromino }) => (
   <StyledDisplay gameOver={gameOver}>{text}</StyledDisplay>
 );
 
