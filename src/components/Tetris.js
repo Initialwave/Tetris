@@ -49,7 +49,7 @@ const Tetris = () => {
   // when the player hits the up arrow, this will drop our tetromino by one div.
   const drop = () => {
     // increases level and speed after clearing 10 rows
-    if (rows > (level + 1) * 10) {
+    if (rows >= (level + 1) * 2) {
       setLevel(prev => prev + 1);
       setDropTime(1000 / (level + 1) + 200);
     }
@@ -78,7 +78,11 @@ const Tetris = () => {
 
   // reiterated above, but we will be building logic to immediately drop the piece x div spaces.
   const dropPlayer = () => {
-    console.log("interval off");
+    setDropTime(1000 / (level + 1) + 200);
+    drop();
+  };
+
+  const pause = () => {
     setDropTime(null);
     drop();
   };
@@ -91,10 +95,12 @@ const Tetris = () => {
       movePlayer(-1);
     } else if (key === "ArrowRight") {
       movePlayer(1);
-    } else if (key === "ArrowUp") {
-      dropPlayer();
     } else if (key === "ArrowDown") {
+      dropPlayer();
+    } else if (key === "ArrowUp") {
       playerRotate(stage, 1);
+    } else if (key === "p") {
+      pause();
     }
   };
 
@@ -114,10 +120,7 @@ const Tetris = () => {
         <Stage stage={stage} />
         <aside>
           {gameOver ? (
-            <Display
-              gameOver={gameOver}
-              text={`Score: ${score}`}
-            />
+            <Display gameOver={gameOver} text={`Score: ${score}`} />
           ) : (
             <div>
               <Display text={`Score: ${score}`} />
