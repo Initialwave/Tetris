@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { checkCollision, STAGE_WIDTH } from "../gameHelpers.js";
-import { TETROMINOS, randomTetromino } from "../tetrominos";
+import { TETROMINOS } from "../tetrominos";
+import { randomTetromino } from "../components/Preview.js";
 
 // current player and tetromino
 export const usePlayer = () => {
